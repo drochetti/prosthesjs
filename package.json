@@ -1,0 +1,23 @@
+{
+	"name": "prosthesjs",
+	"version": "0.1.0",
+	"license": "MIT",
+	"engines": {
+		"node": ">=0.8"
+	},
+	"dependencies": {
+		"backbone": "~1.1.0",
+		"backbone.marionette": "~1.2.3",
+		"underscore": "~1.5.2",
+		"underscore.string": "~2.3.3"
+	},
+	"devDependencies": {
+		"grunt": "~0.4.2",
+		"grunt-contrib-clean": "latest",
+		"grunt-contrib-concat": "latest",
+		"grunt-contrib-copy": "latest",
+		"grunt-contrib-jasmine": "latest",
+		"grunt-contrib-jshint": "latest",
+		"grunt-contrib-uglify": "latest"
+	}
+}

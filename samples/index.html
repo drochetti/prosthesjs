@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Backbone Stack Samples</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.css">
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body id="home">
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a href="#" class="brand">Backbone JS Stack</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="wrapper">
+		<div class="container" style="margin-top: 60px;">
+
+			<table id="data-table" class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>ABV</th>
+						<th>Status</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- View content (rows) goes here -->
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../build/backbone-stack.all.js"></script>
+	<script type="text/javascript">
+
+		var Beer = Model.extend({});
+		var Beers = Collection.extend({
+			sync : function(method, collection) {
+				return $.ajax({
+					url : 'http://api.openbeerdatabase.com/v1/beers.json',
+					dataType : 'jsonp',
+					data : {
+						token : '86c5c23796cd57d711c6af072219ff8afdb832383faf5f19384f2e437343189d'
+					},
+					success : function(data) {
+						collection.reset(data.beers);
+					}
+				});
+			}
+		});
+
+		var myBeerList = new Beers([]);
+
+		var MyTableRowView = TableRowView.extend({
+
+			events : {
+				'click .copyAddress' : 'test',
+				'click .show' : 'test1'
+			},
+
+			test : function() {
+				console.log('console');
+			},
+
+			test1 : function() {
+				console.log('console1');
+			}
+
+		});
+
+		var MyTableView = TableView.extend({
+			
+			columnDefinitions : [
+				'name',
+				'name',
+				'abv',
+				function(data) {
+					return '<span class="label">status</span>';
+				}
+			],
+
+			itemView : MyTableRowView,
+
+			rowActions : {
+
+				copyAddress : {
+					text : 'Teste',
+					tooltip: 'Teste do tooltip'
+				},
+
+				show : {
+					text : 'Teste 1',
+					href : 'http://www.uol.com.br'
+				}
+
+			},
+
+			onRender : function() {
+				console.log(this.notify);
+			}
+
+		}).mixin(view.NotificationMixin);
+
+		var dataTableView = new MyTableView({
+			el : $('#data-table'),
+			collection : myBeerList,
+			autoRender : true
+		});
+		myBeerList.fetch();
+
+	</script>
+
+</body>
+</html>
