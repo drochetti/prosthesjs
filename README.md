@@ -70,5 +70,5 @@ TODO: improve
 4. License
 ----------
 
-This component is licensed under [MIT]() which is a very simple and easy license with very few restrictions, meaning we encourage you to fork and make pull requests, report and solve issues and contribute with ideas and feedback. 
+This component is licensed under [MIT](LICENSE.txt) which is a very simple and easy license with very few restrictions, meaning we encourage you to fork and make pull requests, report and solve issues and contribute with ideas and feedback.
 You are free to use the `prosthesjs` project in any other project (even **commercial** projects) as long as the copyright header is left intact.
