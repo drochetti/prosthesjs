@@ -620,6 +620,12 @@ $define(function(global, $) {
         return ref;
     }
 
+    function referenceNotFoundError(name) {
+        return new Error('Class "' +
+            name +
+            '" could not be found. Make sure it exists, is included and is not misspelled.');
+    }
+
     function resolveModel(el) {
 
         var initModel = function(ref, init) {
@@ -646,6 +652,8 @@ $define(function(global, $) {
                 if (ref) {
                     var modelInit = el.data(name + '-init') || '';
                     modelRef[name] = initModel(ref, modelInit);
+                } else {
+                    throw referenceNotFoundError(modelAttr);
                 }
             }
         });
@@ -679,7 +687,10 @@ $define(function(global, $) {
      * @returns {View}
      */
     function createView(viewName, el) {
-        var View = getReference(viewName, global);
+        var View = getReference(viewName || '', global);
+        if (!View) {
+            throw referenceNotFoundError(viewName);
+        }
 
         var view = new View(_.extend({
             el : el
