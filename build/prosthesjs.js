@@ -743,7 +743,7 @@ $define(function(global, $) {
                 var parentView = $parent.data('view');
                 view.parentView = parentView;
 
-                var viewIdentifier = getViewIdentifier(viewName);
+                var viewIdentifier = $el.data('view-alias') || getViewIdentifier(viewName);
                 parentView.nestedViews[viewIdentifier] = view;
                 if (shouldRender($el)) {
                     if (!parentView._isRendered) {
